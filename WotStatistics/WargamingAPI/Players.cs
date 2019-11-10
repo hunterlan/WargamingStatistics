@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using WotStatistics.Model;
 
 namespace WotStatistics
 {
@@ -71,13 +72,6 @@ namespace WotStatistics
 
             return player;
         }
-    }
-
-    public class Player
-    {
-        public string Nickname { get; set; }
-
-        public int Id { get; set; }
     }
 
 }

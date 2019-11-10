@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WotStatistics;
+using WotStatistics.Model;
 
 namespace WargamingAPITests
 {
