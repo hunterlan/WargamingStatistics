@@ -72,19 +72,15 @@ namespace WotStatistics
         public Statistics GetStatistic(Player currentPlayer)
         {
             //https://api.worldoftanks.ru/wot/account/info/?application_id=y0ur_a@@_id_h3r3&account_id=00111000
-
             Statistics playerStatistic = new Statistics();
             playerStatistic.PlayerId = currentPlayer.Id;
             urlRequest = Properties.Settings.Default.uri_get_stat + appID + "&account_id=" + playerStatistic.PlayerId;
             string resultResponse = GetResponse(urlRequest);
-            //dynamic parsed = JsonConvert.DeserializeObject(resultResponse);
-            //dynamic parsed = JObject.Parse(resultResponse);
             JObject parsed = JObject.Parse(resultResponse);
 
             string status = (string)parsed["status"];
             if(status == "ok")
             {
-
                 playerStatistic.Rating = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["global_rating"];
                 playerStatistic.Clan = (string)parsed["data"][playerStatistic.PlayerId.ToString()]["clan_id"]; //TODO: write finding clan
                 playerStatistic.CountBattles = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["battles"];

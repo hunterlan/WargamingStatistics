@@ -52,5 +52,17 @@ namespace WotStatistics.Properties {
                 this["uri_get_stat"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.worldoftanks.ru/wot/clans/info/?application_id=")]
+        public string uri_get_clan {
+            get {
+                return ((string)(this["uri_get_clan"]));
+            }
+            set {
+                this["uri_get_clan"] = value;
+            }
+        }
     }
 }

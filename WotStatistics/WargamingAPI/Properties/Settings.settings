@@ -11,5 +11,8 @@
     <Setting Name="uri_get_stat" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://api.worldoftanks.ru/wot/account/info/?application_id=</Value>
     </Setting>
+    <Setting Name="uri_get_clan" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://api.worldoftanks.ru/wot/clans/info/?application_id=</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
