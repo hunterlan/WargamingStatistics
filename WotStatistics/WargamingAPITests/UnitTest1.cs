@@ -12,7 +12,10 @@ namespace WargamingAPITests
         public void TestFindPlayer()
         {
             Players players = new Players();
-            List<string> nicknames = new List<string> { "GraF", "Hunterlan2000" };
+            List<string> nicknames = new List<string> { 
+                "GraF", 
+                "Hunterlan2000" 
+            };
 
             List<Player> playersExcepted = new List<Player>
             {
@@ -31,10 +34,13 @@ namespace WargamingAPITests
             List<Player> playersResult = new List<Player>();
             for(int i = 0; i < nicknames.Count; i++)
             {
-                playersExcepted.Add(players.FindPlayer(nicknames[i]));
+                playersResult.Add(players.FindPlayer(nicknames[i]));
             }
 
-            Assert.AreEqual(playersExcepted, playersResult);
+            for(int i = 0; i < playersResult.Count; i++)
+            {
+                Assert.AreEqual(playersExcepted[i].Nickname, playersResult[i].Nickname);
+            }
         }
     }
 }

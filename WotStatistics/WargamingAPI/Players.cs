@@ -42,8 +42,8 @@ namespace WotStatistics
             {
                 player = new Player
                 {
-                    Nickname = temp.nickname,
-                    Id = temp.account_id
+                    Nickname = temp.data[0].nickname,
+                    Id = temp.data[0].account_id
                 };
             }
             else
