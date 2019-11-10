@@ -12,7 +12,7 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             Players players = new Players();
-            string myNick = "Hunterlan2000";
+            string myNick = "GraF";
 
             Player result = players.FindPlayer(myNick);
         }
