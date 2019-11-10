@@ -75,21 +75,31 @@ namespace WotStatistics
 
             Statistics playerStatistic = new Statistics();
             playerStatistic.PlayerId = currentPlayer.Id;
-            urlRequest = Properties.Settings.Default.url_find_player + appID + "&account_id=" + playerStatistic.PlayerId;
+            urlRequest = Properties.Settings.Default.uri_get_stat + appID + "&account_id=" + playerStatistic.PlayerId;
             string resultResponse = GetResponse(urlRequest);
-            dynamic parsed = JsonConvert.DeserializeObject(resultResponse);
+            //dynamic parsed = JsonConvert.DeserializeObject(resultResponse);
+            //dynamic parsed = JObject.Parse(resultResponse);
+            JObject parsed = JObject.Parse(resultResponse);
 
-            string status = parsed.status;
+            string status = (string)parsed["status"];
             if(status == "ok")
             {
-                playerStatistic.Rating = parsed.global_rating;
-                playerStatistic.Clan = parsed.clan_id; //TODO: write finding clan
-                playerStatistic.Winrate = CountWinRate(parsed.all[0].wins, parsed.all[0].losses);
-                playerStatistic.CountBattles = parsed.all[0].battles;
-                playerStatistic.LastBattle = ConvertFromTimestamp(parsed.last_battle_time);
+
+                playerStatistic.Rating = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["global_rating"];
+                playerStatistic.Clan = (string)parsed["data"][playerStatistic.PlayerId.ToString()]["clan_id"]; //TODO: write finding clan
+                playerStatistic.CountBattles = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["battles"];
+                playerStatistic.Winrate = CountWinRate(
+                    (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["wins"],
+                    playerStatistic.CountBattles);
+                playerStatistic.LastBattle = ConvertFromTimestamp((int)parsed["data"][playerStatistic.PlayerId.ToString()]["last_battle_time"]);
             }
 
             return playerStatistic;
+        }
+
+        private string GetClan(string id)
+        {
+            throw new NotImplementedException();
         }
 
         private DateTime ConvertFromTimestamp(int timestap)
@@ -97,9 +107,9 @@ namespace WotStatistics
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return origin.AddSeconds(timestap);
         }
-        private double CountWinRate(int wins, int losses)
+        private double CountWinRate(int wins, int countBattles)
         {
-            double winRate = (double)wins / losses;
+            double winRate = (double)wins / countBattles;
             return winRate;
         }
 
