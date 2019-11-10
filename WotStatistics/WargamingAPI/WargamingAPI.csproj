@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\PlayerNotFound.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\Statistics.cs" />
     <Compile Include="WargaminAPI.cs" />

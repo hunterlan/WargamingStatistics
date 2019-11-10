@@ -40,5 +40,17 @@ namespace WotStatistics.Properties {
                 return ((string)(this["url_find_player"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.worldoftanks.ru/wot/account/info/?application_id=")]
+        public string uri_get_stat {
+            get {
+                return ((string)(this["uri_get_stat"]));
+            }
+            set {
+                this["uri_get_stat"] = value;
+            }
+        }
     }
 }

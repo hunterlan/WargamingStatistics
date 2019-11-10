@@ -8,5 +8,8 @@
     <Setting Name="url_find_player" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://api.worldoftanks.ru/wot/account/list/?application_id=</Value>
     </Setting>
+    <Setting Name="uri_get_stat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://api.worldoftanks.ru/wot/account/info/?application_id=</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

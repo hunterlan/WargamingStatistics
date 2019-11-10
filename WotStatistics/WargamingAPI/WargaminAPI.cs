@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
+using WotStatistics.Exceptions;
 using WotStatistics.Model;
 
 namespace WotStatistics
@@ -52,7 +53,7 @@ namespace WotStatistics
                 }
                 else
                 {
-                    throw new Exception("Player wasn't found");
+                    throw new PlayerNotFound("Player wasn't found");
                 }
             }
             else
@@ -60,15 +61,15 @@ namespace WotStatistics
                 string error = temp.error.message;
                 if (error == "NOT_ENOUGH_SEARCH_LENGTH")
                 {
-                    throw new Exception("Write at least 3 symbols.");
+                    throw new PlayerNotFound("Minimum three characters required");
                 }
                 else if (error == "INVALID_SEARCH")
                 {
-                    throw new Exception("Invalid search");
+                    throw new PlayerNotFound("Invalid search");
                 }
                 else if (error == "SEARCH_NOT_SPECIFIED")
                 {
-                    throw new Exception("Empty nickname");
+                    throw new PlayerNotFound("Empty nickname");
                 }
                 else
                 {
