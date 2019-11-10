@@ -54,5 +54,18 @@ namespace WargamingAPITests
             DateTime resultTime = (DateTime)privateObject.Invoke("ConvertFromTimestamp", timestamp);
             Assert.AreEqual(expectedTime, resultTime);
         }
+
+        [TestMethod]
+        public void TestGetNameClan()
+        {
+            WargaminAPI operations = new WargaminAPI();
+            string idClan = "61318";
+            string expectedName = "Coyotes / Alpha";
+
+            var privateObject = new PrivateObject(operations);
+            string resultName = (string)privateObject.Invoke("GetClan", idClan);
+
+            Assert.AreEqual(expectedName, resultName);
+        }
     }
 }
