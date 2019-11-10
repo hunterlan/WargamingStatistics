@@ -25,30 +25,19 @@ namespace WotStatistics
             //https://api.worldoftanks.ru/wot/account/list/?application_id=y0ur_a@@_id_h3r3search=nickname
             urlRequest = Properties.Settings.Default.url_find_player + appID + "&search=" + searchNickname;
             Player player = null;
-            string resultResponse = "";
+            string resultResponse = GetResponse(urlRequest);
+            dynamic parsed = JsonConvert.DeserializeObject(resultResponse);
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRequest);
-            request.ContentType = "application/json; charset=utf-8";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
-            {
-                resultResponse = sr.ReadToEnd();
-            }
-
-
-            dynamic temp = JsonConvert.DeserializeObject(resultResponse);
-
-            string status = temp.status;
+            string status = parsed.status;
             if (status == "ok")
             {
-                int count = temp.count;
+                int count = parsed.count;
                 if(count > 0)
                 {
                     player = new Player
                     {
-                        Nickname = temp.data[0].nickname,
-                        Id = temp.data[0].account_id
+                        Nickname = parsed.data[0].nickname,
+                        Id = parsed.data[0].account_id
                     };
                 }
                 else
@@ -58,7 +47,7 @@ namespace WotStatistics
             }
             else
             {
-                string error = temp.error.message;
+                string error = parsed.error.message;
                 if (error == "NOT_ENOUGH_SEARCH_LENGTH")
                 {
                     throw new PlayerNotFound("Minimum three characters required");
@@ -82,11 +71,46 @@ namespace WotStatistics
 
         public Statistics GetStatistic(Player currentPlayer)
         {
+            //https://api.worldoftanks.ru/wot/account/info/?application_id=y0ur_a@@_id_h3r3&account_id=00111000
+
             Statistics playerStatistic = new Statistics();
             playerStatistic.PlayerId = currentPlayer.Id;
-            //https://api.worldoftanks.ru/wot/account/info/?application_id=y0ur_a@@_id_h3r3&account_id=00111000
             urlRequest = Properties.Settings.Default.url_find_player + appID + "&account_id=" + playerStatistic.PlayerId;
+            string resultResponse = GetResponse(urlRequest);
+            dynamic parsed = JsonConvert.DeserializeObject(resultResponse);
+
+            string status = parsed.status;
+            if(status == "ok")
+            {
+                playerStatistic.Rating = parsed.global_rating;
+                playerStatistic.Clan = parsed.clan_id; //TODO: write finding clan
+                playerStatistic.Winrate = CountWinRate(parsed.wins, parsed.losses);
+
+            }
+
             return playerStatistic;
+        }
+
+        private double CountWinRate(int wins, int losses)
+        {
+            double winRate = (double)wins / losses;
+            return winRate;
+        }
+
+        private string GetResponse(string urlRequest)
+        {
+            string resultResponse = "";
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRequest);
+            request.ContentType = "application/json; charset=utf-8";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+            {
+                resultResponse = sr.ReadToEnd();
+            }
+
+            return resultResponse;
         }
     }
 
