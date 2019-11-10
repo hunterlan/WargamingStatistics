@@ -13,13 +13,13 @@ namespace WotStatistics
         private string urlRequest;
         public Players()
         {
-            appID = ConfigurationManager.AppSettings["application_id"];
+            appID = Properties.Settings.Default.application_id;
         }
 
         public Player FindPlayer(string searchNickname)
         {
             //https://api.worldoftanks.ru/wot/account/list/?application_id=9adf6dc175f22b26d8f812ca4dd7d7bb&search=Hunterlan2000
-            urlRequest = ConfigurationManager.AppSettings["url_find_player"] + appID;
+            urlRequest = Properties.Settings.Default.url_find_player + appID;
             Player player = null;
             string resultResponse = "";
 
