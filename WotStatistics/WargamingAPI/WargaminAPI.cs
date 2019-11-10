@@ -22,7 +22,7 @@ namespace WotStatistics
 
         public Player FindPlayer(string searchNickname)
         {
-            //https://api.worldoftanks.ru/wot/account/list/?application_id=9adf6dc175f22b26d8f812ca4dd7d7bb&search=Hunterlan2000
+            //https://api.worldoftanks.ru/wot/account/list/?application_id=y0ur_a@@_id_h3r3search=nickname
             urlRequest = Properties.Settings.Default.url_find_player + appID + "&search=" + searchNickname;
             Player player = null;
             string resultResponse = "";
@@ -84,7 +84,8 @@ namespace WotStatistics
         {
             Statistics playerStatistic = new Statistics();
             playerStatistic.PlayerId = currentPlayer.Id;
-
+            //https://api.worldoftanks.ru/wot/account/info/?application_id=y0ur_a@@_id_h3r3&account_id=00111000
+            urlRequest = Properties.Settings.Default.url_find_player + appID + "&account_id=" + playerStatistic.PlayerId;
             return playerStatistic;
         }
     }
