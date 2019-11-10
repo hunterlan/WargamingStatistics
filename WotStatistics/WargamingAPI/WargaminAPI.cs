@@ -82,7 +82,8 @@ namespace WotStatistics
             if(status == "ok")
             {
                 playerStatistic.Rating = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["global_rating"];
-                playerStatistic.Clan = (string)parsed["data"][playerStatistic.PlayerId.ToString()]["clan_id"]; //TODO: write finding clan
+                string clanID = (string)parsed["data"][playerStatistic.PlayerId.ToString()]["clan_id"];
+                playerStatistic.Clan = GetClan(clanID);
                 playerStatistic.CountBattles = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["battles"];
                 playerStatistic.Winrate = CountWinRate(
                     (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["wins"],
@@ -95,7 +96,26 @@ namespace WotStatistics
 
         private string GetClan(string id)
         {
-            throw new NotImplementedException();
+            string nameClan = "";
+
+            if (id == null)
+            {
+                return null;
+            }
+            else
+            {
+                urlRequest = Properties.Settings.Default.uri_get_clan + appID + "&clan_id=" + id;
+                string resultResponse = GetResponse(urlRequest);
+                JObject parsed = JObject.Parse(resultResponse);
+
+                string status = (string)parsed["status"];
+                if (status == "ok")
+                {
+                    nameClan = (string)parsed["data"][id]["name"];
+                }
+            }
+
+            return nameClan;
         }
 
         private DateTime ConvertFromTimestamp(int timestap)
