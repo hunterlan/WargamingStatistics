@@ -12,7 +12,7 @@ namespace WargamingAPITests
         [TestMethod]
         public void TestFindPlayer()
         {
-            WargaminAPI players = new WargaminAPI();
+            WargaminAPI operations = new WargaminAPI();
             List<string> nicknames = new List<string> { 
                 "GraF", 
                 "Hunterlan2000" 
@@ -35,13 +35,23 @@ namespace WargamingAPITests
             List<Player> playersResult = new List<Player>();
             for(int i = 0; i < nicknames.Count; i++)
             {
-                playersResult.Add(players.FindPlayer(nicknames[i]));
+                playersResult.Add(operations.FindPlayer(nicknames[i]));
             }
 
             for(int i = 0; i < playersResult.Count; i++)
             {
                 Assert.AreEqual(playersExcepted[i].Nickname, playersResult[i].Nickname);
             }
+        }
+
+        [TestMethod]
+        public void TestConvertFromTimestamp()
+        {
+            WargaminAPI operations = new WargaminAPI();
+            int timestamp = 1573338539;
+            DateTime expectedTime = new DateTime(2019, 11, 9, 22, 28, 59);
+            DateTime resultTime = operations.ConvertFromTimestamp(timestamp);
+            Assert.AreEqual(expectedTime, resultTime);
         }
     }
 }

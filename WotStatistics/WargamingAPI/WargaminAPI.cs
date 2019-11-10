@@ -31,7 +31,7 @@ namespace WotStatistics
             string status = parsed.status;
             if (status == "ok")
             {
-                int count = parsed.count;
+                int count = parsed.meta.count;
                 if(count > 0)
                 {
                     player = new Player
@@ -84,13 +84,19 @@ namespace WotStatistics
             {
                 playerStatistic.Rating = parsed.global_rating;
                 playerStatistic.Clan = parsed.clan_id; //TODO: write finding clan
-                playerStatistic.Winrate = CountWinRate(parsed.wins, parsed.losses);
-
+                playerStatistic.Winrate = CountWinRate(parsed.all[0].wins, parsed.all[0].losses);
+                playerStatistic.CountBattles = parsed.all[0].battles;
+                playerStatistic.LastBattle = ConvertFromTimestamp(parsed.last_battle_time);
             }
 
             return playerStatistic;
         }
 
+        public DateTime ConvertFromTimestamp(int timestap)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return origin.AddSeconds(timestap);
+        }
         private double CountWinRate(int wins, int losses)
         {
             double winRate = (double)wins / losses;
