@@ -92,7 +92,7 @@ namespace WotStatistics
             return playerStatistic;
         }
 
-        public DateTime ConvertFromTimestamp(int timestap)
+        private DateTime ConvertFromTimestamp(int timestap)
         {
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return origin.AddSeconds(timestap);

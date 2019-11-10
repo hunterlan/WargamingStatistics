@@ -48,9 +48,10 @@ namespace WargamingAPITests
         public void TestConvertFromTimestamp()
         {
             WargaminAPI operations = new WargaminAPI();
+            var privateObject = new PrivateObject(operations);
             int timestamp = 1573338539;
             DateTime expectedTime = new DateTime(2019, 11, 9, 22, 28, 59);
-            DateTime resultTime = operations.ConvertFromTimestamp(timestamp);
+            DateTime resultTime = (DateTime)privateObject.Invoke("ConvertFromTimestamp", timestamp);
             Assert.AreEqual(expectedTime, resultTime);
         }
     }
