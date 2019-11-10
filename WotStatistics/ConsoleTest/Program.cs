@@ -12,7 +12,7 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            Players players = new Players();
+            WargaminAPI players = new WargaminAPI();
             string myNick = "GraF";
 
             Player result = players.FindPlayer(myNick);

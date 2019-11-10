@@ -46,7 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Player.cs" />
-    <Compile Include="Players.cs" />
+    <Compile Include="Model\Statistics.cs" />
+    <Compile Include="WargaminAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

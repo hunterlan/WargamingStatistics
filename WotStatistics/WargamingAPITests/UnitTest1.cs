@@ -12,7 +12,7 @@ namespace WargamingAPITests
         [TestMethod]
         public void TestFindPlayer()
         {
-            Players players = new Players();
+            WargaminAPI players = new WargaminAPI();
             List<string> nicknames = new List<string> { 
                 "GraF", 
                 "Hunterlan2000" 
