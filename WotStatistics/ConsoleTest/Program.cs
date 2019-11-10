@@ -13,9 +13,10 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             WargaminAPI players = new WargaminAPI();
-            string myNick = "GraF";
+            string myNick = "Hunterlan2000";
 
             Player result = players.FindPlayer(myNick);
+            Statistics stat = players.GetStatistic(result);
         }
     }
 }
