@@ -41,15 +41,22 @@ namespace WotStatistics
             string status = temp.status;
             if (status == "ok")
             {
-                player = new Player
+                int count = temp.count;
+                if(count > 0)
                 {
-                    Nickname = temp.data[0].nickname,
-                    Id = temp.data[0].account_id
-                };
+                    player = new Player
+                    {
+                        Nickname = temp.data[0].nickname,
+                        Id = temp.data[0].account_id
+                    };
+                }
+                else
+                {
+                    throw new Exception("Player wasn't found");
+                }
             }
             else
             {
-
                 string error = temp.error.message;
                 if (error == "NOT_ENOUGH_SEARCH_LENGTH")
                 {
@@ -67,7 +74,6 @@ namespace WotStatistics
                 {
                     throw new Exception("Something went wrong.");
                 }
-
             }
 
             return player;
