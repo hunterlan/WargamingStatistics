@@ -42,7 +42,7 @@ namespace WotStatistics
                 }
                 else
                 {
-                    throw new PlayerNotFound("Player wasn't found");
+                    throw new PlayerNotFound("Игрок не найден");
                 }
             }
             else
@@ -50,15 +50,15 @@ namespace WotStatistics
                 string error = parsed.error.message;
                 if (error == "NOT_ENOUGH_SEARCH_LENGTH")
                 {
-                    throw new PlayerNotFound("Minimum three characters required");
+                    throw new PlayerNotFound("Минимум три символа требуется");
                 }
                 else if (error == "INVALID_SEARCH")
                 {
-                    throw new PlayerNotFound("Invalid search");
+                    throw new PlayerNotFound("Неверный поиск");
                 }
                 else if (error == "SEARCH_NOT_SPECIFIED")
                 {
-                    throw new PlayerNotFound("Empty nickname");
+                    throw new PlayerNotFound("Пустой никнейм");
                 }
                 else
                 {

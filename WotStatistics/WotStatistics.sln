@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WargamingAPI", "WargamingAP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WargamingAPITests", "WargamingAPITests\WargamingAPITests.csproj", "{6413A5B4-9CF1-49B7-967F-562C0604330D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{F2DB5526-48E0-4517-848F-0314620CA8A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot", "ConsoleTest\Bot.csproj", "{F2DB5526-48E0-4517-848F-0314620CA8A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

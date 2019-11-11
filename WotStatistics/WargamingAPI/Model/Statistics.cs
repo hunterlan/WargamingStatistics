@@ -19,5 +19,24 @@ namespace WotStatistics.Model
         public int CountBattles { get; set; }
 
         public int Rating { get; set; }
+
+        public override string ToString()
+        {
+            string statistic = "Последний бой был " + LastBattle.ToString() +
+                "  \nПроцент побед: " + Math.Round((Winrate * 100), 2) + "%  \n";
+            if(Clan != null)
+            {
+                statistic += "Клан: " + Clan + "  \n"; 
+            }
+            else
+            {
+                statistic += "В клане не состоит" + "  \n";
+            }
+
+            statistic += "Количество боев: " + CountBattles + "  \n" + 
+                "Личный рейтинг: " + Rating;
+
+            return statistic;
+        }
     }
 }
