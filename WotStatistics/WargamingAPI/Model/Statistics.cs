@@ -20,6 +20,8 @@ namespace WotStatistics.Model
 
         public int Rating { get; set; }
 
+        public int WN8 { get; set; }
+
         public override string ToString()
         {
             string statistic = "Последний бой был " + LastBattle.ToString() +
