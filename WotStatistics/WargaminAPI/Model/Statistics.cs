@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace WotStatistics.Model
+namespace WargaminAPI.Model
 {
     public class Statistics
     {
@@ -23,17 +21,17 @@ namespace WotStatistics.Model
         public override string ToString()
         {
             string statistic = "Последний бой был " + LastBattle.ToString() +
-                "  \nПроцент побед: " + Math.Round((Winrate * 100), 2) + "%  \n";
-            if(Clan != null)
+                " (по Гринвичу)  \nПроцент побед: " + Math.Round((Winrate * 100), 2) + "%  \n";
+            if (Clan != null)
             {
-                statistic += "Клан: " + Clan + "  \n"; 
+                statistic += "Клан: " + Clan + "  \n";
             }
             else
             {
                 statistic += "В клане не состоит" + "  \n";
             }
 
-            statistic += "Количество боев: " + CountBattles + "  \n" + 
+            statistic += "Количество боев: " + CountBattles + "  \n" +
                 "Личный рейтинг: " + Rating;
 
             return statistic;

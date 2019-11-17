@@ -1,18 +1,18 @@
 ﻿using DSharpPlus;
-using System;
-using System.Configuration;
+using Execute;
 using System.Threading.Tasks;
-using WotStatistics;
-using WotStatistics.Exceptions;
-using WotStatistics.Model;
+using WargaminAPI.Exceptions;
+using WargaminAPI.Model;
 
-namespace Bot
+namespace WotStatistics
 {
-    class Program
+    class Executor
     {
         static DiscordClient discord;
+        static System.Resources.ResourceManager resourceMan;
         static void Main(string[] args)
         {
+            resourceMan = new System.Resources.ResourceManager("Execute.Settings", typeof(Settings).Assembly);
             MainTask(args).ConfigureAwait(false).GetAwaiter().GetResult();
         }
         static async Task MainTask(string[] args)
@@ -20,7 +20,7 @@ namespace Bot
             WargaminAPI operations = new WargaminAPI();
             discord = new DiscordClient(new DiscordConfiguration
             {
-                Token = ConfigurationManager.AppSettings["DisToken"],
+                Token = resourceMan.GetString("DisToken"),
                 TokenType = TokenType.Bot,
                 UseInternalLogHandler = true,
                 LogLevel = LogLevel.Debug
@@ -34,12 +34,12 @@ namespace Bot
                     string playerNickname = parseNickname(response);
                     Player currentPlayer = new Player();
                     bool foundPlayer = false;
-                    try 
+                    try
                     {
                         currentPlayer = operations.FindPlayer(playerNickname);
                         foundPlayer = true;
                     }
-                    catch(PlayerNotFound ex)
+                    catch (PlayerNotFound ex)
                     {
                         await e.Message.RespondAsync(ex.Message);
                     }
@@ -49,10 +49,10 @@ namespace Bot
                         await e.Message.RespondAsync(infoMsg);
                     }
 
-                    if(foundPlayer)
+                    if (foundPlayer)
                     {
                         Statistics playerStatistics = operations.GetStatistic(currentPlayer);
-                        await e.Message.RespondAsync("Игрок: " + currentPlayer.ToString() + 
+                        await e.Message.RespondAsync("Игрок: " + currentPlayer.ToString() +
                             "  \n" + playerStatistics.ToString());
                     }
                 }
@@ -74,7 +74,7 @@ namespace Bot
 
             int i = 6;
             command = command.Replace(" ", "");
-            while(i < command.Length)
+            while (i < command.Length)
             {
                 nickname += command[i];
                 i++;

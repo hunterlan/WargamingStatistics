@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WargamingAPI", "WargamingAPI\WargamingAPI.csproj", "{2342E8E8-4F78-4BE1-9230-A02E7425F7B9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET Core", ".NET Core", "{8C69DF53-9F48-41F8-89A4-B3512FF57699}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WargamingAPITests", "WargamingAPITests\WargamingAPITests.csproj", "{6413A5B4-9CF1-49B7-967F-562C0604330D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Execute", "Execute\Execute.csproj", "{ED419735-7290-413D-83D9-3D62A7F79B97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot", "ConsoleTest\Bot.csproj", "{F2DB5526-48E0-4517-848F-0314620CA8A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WargaminAPI", "WargaminAPI\WargaminAPI.csproj", "{42F8B849-842A-4E91-9DE9-BA715548A330}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,21 +15,21 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2342E8E8-4F78-4BE1-9230-A02E7425F7B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2342E8E8-4F78-4BE1-9230-A02E7425F7B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2342E8E8-4F78-4BE1-9230-A02E7425F7B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2342E8E8-4F78-4BE1-9230-A02E7425F7B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6413A5B4-9CF1-49B7-967F-562C0604330D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6413A5B4-9CF1-49B7-967F-562C0604330D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6413A5B4-9CF1-49B7-967F-562C0604330D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6413A5B4-9CF1-49B7-967F-562C0604330D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F2DB5526-48E0-4517-848F-0314620CA8A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2DB5526-48E0-4517-848F-0314620CA8A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2DB5526-48E0-4517-848F-0314620CA8A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2DB5526-48E0-4517-848F-0314620CA8A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED419735-7290-413D-83D9-3D62A7F79B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED419735-7290-413D-83D9-3D62A7F79B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED419735-7290-413D-83D9-3D62A7F79B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED419735-7290-413D-83D9-3D62A7F79B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F8B849-842A-4E91-9DE9-BA715548A330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F8B849-842A-4E91-9DE9-BA715548A330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F8B849-842A-4E91-9DE9-BA715548A330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F8B849-842A-4E91-9DE9-BA715548A330}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED419735-7290-413D-83D9-3D62A7F79B97} = {8C69DF53-9F48-41F8-89A4-B3512FF57699}
+		{42F8B849-842A-4E91-9DE9-BA715548A330} = {8C69DF53-9F48-41F8-89A4-B3512FF57699}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {909988E1-52A0-490F-ABAD-52E31C6C4525}

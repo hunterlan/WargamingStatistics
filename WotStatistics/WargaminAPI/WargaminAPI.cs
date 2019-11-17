@@ -1,13 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
+using WargaminAPI.Model;
+using WargaminAPI.Exceptions;
+using Newtonsoft.Json.Linq;
 using System.Net;
-using WotStatistics.Exceptions;
-using WotStatistics.Model;
+using System.IO;
+using WargaminAPI.Properties;
 
 namespace WotStatistics
 {
@@ -15,15 +13,17 @@ namespace WotStatistics
     {
         private readonly string appID;
         private string urlRequest;
+        System.Resources.ResourceManager resourceMan;
         public WargaminAPI()
         {
-            appID = Properties.Settings.Default.application_id;
+            resourceMan = new System.Resources.ResourceManager("WargaminAPI.Properties.Resources", typeof(Resources).Assembly);
+            appID = resourceMan.GetString("application_id");
         }
 
         public Player FindPlayer(string searchNickname)
         {
             //https://api.worldoftanks.ru/wot/account/list/?application_id=y0ur_a@@_id_h3r3search=nickname
-            urlRequest = Properties.Settings.Default.url_find_player + appID + "&search=" + searchNickname;
+            urlRequest = resourceMan.GetString("url_find_player") + appID + "&search=" + searchNickname;
             Player player = null;
             string resultResponse = GetResponse(urlRequest);
             dynamic parsed = JsonConvert.DeserializeObject(resultResponse);
@@ -32,7 +32,7 @@ namespace WotStatistics
             if (status == "ok")
             {
                 int count = parsed.meta.count;
-                if(count > 0)
+                if (count > 0)
                 {
                     player = new Player
                     {
@@ -74,12 +74,12 @@ namespace WotStatistics
             //https://api.worldoftanks.ru/wot/account/info/?application_id=y0ur_a@@_id_h3r3&account_id=00111000
             Statistics playerStatistic = new Statistics();
             playerStatistic.PlayerId = currentPlayer.Id;
-            urlRequest = Properties.Settings.Default.uri_get_stat + appID + "&account_id=" + playerStatistic.PlayerId;
+            urlRequest = resourceMan.GetString("uri_get_stat") + appID + "&account_id=" + playerStatistic.PlayerId;
             string resultResponse = GetResponse(urlRequest);
             JObject parsed = JObject.Parse(resultResponse);
 
             string status = (string)parsed["status"];
-            if(status == "ok")
+            if (status == "ok")
             {
                 playerStatistic.Rating = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["global_rating"];
                 string clanID = (string)parsed["data"][playerStatistic.PlayerId.ToString()]["clan_id"];
@@ -104,7 +104,7 @@ namespace WotStatistics
             }
             else
             {
-                urlRequest = Properties.Settings.Default.uri_get_clan + appID + "&clan_id=" + id;
+                urlRequest = resourceMan.GetString("uri_get_clan") + appID + "&clan_id=" + id;
                 string resultResponse = GetResponse(urlRequest);
                 JObject parsed = JObject.Parse(resultResponse);
 
@@ -121,7 +121,7 @@ namespace WotStatistics
         private DateTime ConvertFromTimestamp(int timestap)
         {
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return origin.AddSeconds(timestap);
+            return origin.AddSeconds(timestap).ToUniversalTime();
         }
         private double CountWinRate(int wins, int countBattles)
         {
@@ -145,5 +145,4 @@ namespace WotStatistics
             return resultResponse;
         }
     }
-
 }
