@@ -7,19 +7,18 @@ using System.Net;
 using System.IO;
 using WargaminAPI.Properties;
 
-namespace WotStatistics
+namespace WargaminAPI.WoT
 {
-    public class WargaminAPI
+    public class PlayerInfo
     {
         private readonly string appID;
         private string urlRequest;
         System.Resources.ResourceManager resourceMan;
-        public WargaminAPI()
+        public PlayerInfo()
         {
             resourceMan = new System.Resources.ResourceManager("WargaminAPI.Properties.Resources", typeof(Resources).Assembly);
             appID = resourceMan.GetString("application_id");
         }
-
         public Player FindPlayer(string searchNickname)
         {
             //https://api.worldoftanks.ru/wot/account/list/?application_id=y0ur_a@@_id_h3r3search=nickname
