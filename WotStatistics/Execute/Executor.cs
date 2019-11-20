@@ -19,15 +19,14 @@ namespace WargamingStat
         static void Main(string[] args)
         {
             resourceMan = new System.Resources.ResourceManager("Execute.Settings", typeof(Settings).Assembly);
-            Console.WriteLine(WargaminAPI.Enigma.Encrypt("9adf6dc175f22b26d8f812ca4dd7d7bb", "AppID"));
-            //MainTask(args).ConfigureAwait(false).GetAwaiter().GetResult();
+            MainTask(args).ConfigureAwait(false).GetAwaiter().GetResult();
         }
         static async Task MainTask(string[] args)
         {
             string token = WargaminAPI.Enigma.Decrypt(resourceMan.GetString("DisToken"), PHRASE);
             discord = new DiscordClient(new DiscordConfiguration
             {
-                Token = resourceMan.GetString("DisToken"),
+                Token = token,
                 TokenType = TokenType.Bot,
                 UseInternalLogHandler = true,
                 LogLevel = LogLevel.Debug
@@ -36,54 +35,57 @@ namespace WargamingStat
             discord.MessageCreated += async e =>
             {
                 string message = e.Message.Content;
-                if(message.ToLower().StartsWith(HELP))
+                if(message.StartsWith("&"))
                 {
-                    string helpMsg = e.Author.Mention + "```css\nПомните: [] - обязательный параметр  \n" +
-                            "&stats_player [type_of_game] [your_nick] - показывает вашу статистику\n" +
-                            "Где [type_of_game] - список игр варгейминг:\n" +
-                            "- WoT\n- WoW\n ```";
-                    await e.Message.RespondAsync(helpMsg);
-                }
-                else
-                {
-                    string typeOfGame = parseTypeOfGame(message);
-                    if (typeOfGame == null || typeOfGame == "")
+                    if (message.ToLower().StartsWith(HELP))
                     {
-                        
-                        await e.Message.RespondAsync(e.Author.Mention +",\nВы не указали, какая игра. Введите &help для помощи.");
+                        string helpMsg = e.Author.Mention + "```css\nПомните: [] - обязательный параметр  \n" +
+                                "&stats_player [type_of_game] [your_nick] - показывает вашу статистику\n" +
+                                "Где [type_of_game] - список игр варгейминг:\n" +
+                                "- WoT\n- WoW\n ```";
+                        await e.Message.RespondAsync(helpMsg);
                     }
-                    else if (typeOfGame.ToLower() == "wow")
+                    else
                     {
-                        await e.Message.RespondAsync("В разработке");
-                    }
-                    else if (typeOfGame.ToLower() == "wot")
-                    {
-                        PlayerInfo operations = new PlayerInfo();
-
-                        if (message.ToLower().StartsWith(STAT_PLAYER))
+                        string typeOfGame = parseTypeOfGame(message);
+                        if (typeOfGame == null || typeOfGame == "")
                         {
-                            string playerNickname = parseNickname(message, STAT_PLAYER, typeOfGame);
-                            Player currentPlayer = new Player();
-                            bool foundPlayer = false;
-                            try
+
+                            await e.Message.RespondAsync(e.Author.Mention + ",\nВы не указали, какая игра. Введите &help для помощи.");
+                        }
+                        else if (typeOfGame.ToLower() == "wow")
+                        {
+                            await e.Message.RespondAsync("В разработке");
+                        }
+                        else if (typeOfGame.ToLower() == "wot")
+                        {
+                            PlayerInfo operations = new PlayerInfo();
+
+                            if (message.ToLower().StartsWith(STAT_PLAYER))
                             {
-                                currentPlayer = operations.FindPlayer(playerNickname);
-                                foundPlayer = true;
-                            }
-                            catch (PlayerNotFound ex)
-                            {
-                                await e.Message.RespondAsync(ex.Message);
-                            }
-                            catch
-                            {
-                                string infoMsg = e.Author.Mention + "Напишите GRAF или hunterlan об ошибке и пропишите все ваши действия.";
-                                await e.Message.RespondAsync(infoMsg);
-                            }
-                            if (foundPlayer)
-                            {
-                                Statistics playerStatistics = operations.GetStatistic(currentPlayer);
-                                await e.Message.RespondAsync(e.Author.Mention + "\n```Игрок: " + currentPlayer.ToString() +
-                                    "  \n" + playerStatistics.ToString() + "```");
+                                string playerNickname = parseNickname(message, STAT_PLAYER, typeOfGame);
+                                Player currentPlayer = new Player();
+                                bool foundPlayer = false;
+                                try
+                                {
+                                    currentPlayer = operations.FindPlayer(playerNickname);
+                                    foundPlayer = true;
+                                }
+                                catch (PlayerNotFound ex)
+                                {
+                                    await e.Message.RespondAsync(ex.Message);
+                                }
+                                catch
+                                {
+                                    string infoMsg = e.Author.Mention + "Напишите GRAF или hunterlan об ошибке и пропишите все ваши действия.";
+                                    await e.Message.RespondAsync(infoMsg);
+                                }
+                                if (foundPlayer)
+                                {
+                                    Statistics playerStatistics = operations.GetStatistic(currentPlayer);
+                                    await e.Message.RespondAsync(e.Author.Mention + "\n```Игрок: " + currentPlayer.ToString() +
+                                        "  \n" + playerStatistics.ToString() + "```");
+                                }
                             }
                         }
                     }
