@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WargaminAPI.Model
 {
-    class Clan
+    public class Clan
     {
         public int ID { get; set; }
         public string ClanName { get; set; }
