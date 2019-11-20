@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using WargaminAPI.Model;
 
@@ -22,11 +23,18 @@ namespace WargaminAPI.WoT
                 string status = (string)parsed["status"];
                 if (status == "ok")
                 {
-                    currentClan.ClanName = (string)parsed["data"][currentClan.ID]["name"];
-                    currentClan.ClanTag = (string)parsed["data"][currentClan.ID]["tag"];
-                    currentClan.CountMembers = int.Parse((string)parsed["data"][currentClan.ID]["members_count"]);
-                    currentClan.CreatedAt = ConvertFromTimestamp(
-                        int.Parse((string)parsed["data"][currentClan.ID]["created_at"]));
+                    try
+                    {
+                        currentClan.ClanName = (string)parsed["data"][currentClan.ID.ToString()]["name"];
+                        currentClan.ClanTag = (string)parsed["data"][currentClan.ID.ToString()]["tag"];
+                        currentClan.CountMembers = int.Parse((string)parsed["data"][currentClan.ID.ToString()]["members_count"]);
+                        currentClan.CreatedAt = ConvertFromTimestamp(
+                            int.Parse((string)parsed["data"][currentClan.ID.ToString()]["created_at"]));
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
                 }
                 return true;
             }
@@ -42,9 +50,9 @@ namespace WargaminAPI.WoT
             string status = (string)parsed["status"];
             if (status == "ok")
             {
-                string efficiency = (string)parsed["data"][currentClan.ID]["efficiency"]["value"];
-                string globalMapStat = (string)parsed["data"][currentClan.ID]["gm_elo_rating"]["value"];
-                string fbStat = (string)parsed["data"][currentClan.ID]["fb_elo_rating"]["value"];
+                string efficiency = (string)parsed["data"][currentClan.ID.ToString()]["efficiency"]["value"];
+                string globalMapStat = (string)parsed["data"][currentClan.ID.ToString()]["gm_elo_rating"]["value"];
+                string fbStat = (string)parsed["data"][currentClan.ID.ToString()]["fb_elo_rating"]["value"];
                 if (efficiency != null)
                 {
                     currentClan.GlobalRating = float.Parse(efficiency);
@@ -63,7 +71,7 @@ namespace WargaminAPI.WoT
                 }
                 if (fbStat != null)
                 { 
-                    currentClan.FbEloRating = (float)parsed["data"][currentClan.ID]["fb_elo_rating"]["value"];
+                    currentClan.FbEloRating = (float)parsed["data"][currentClan.ID.ToString()]["fb_elo_rating"]["value"];
                 }
                 else
                 {

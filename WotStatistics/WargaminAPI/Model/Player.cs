@@ -11,7 +11,7 @@ namespace WargaminAPI.Model
 
         public override string ToString()
         {
-            return Nickname.Replace("_", @"\_");
+            return Nickname;
         }
     }
 }
