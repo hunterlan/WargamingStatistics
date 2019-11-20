@@ -10,10 +10,11 @@ namespace WargaminAPI.WoT
         protected readonly string appID;
         protected string urlRequest;
         protected System.Resources.ResourceManager resourceMan;
+        private readonly string PHRASE = "AppID";
         public Info()
         {
             resourceMan = new System.Resources.ResourceManager("WargaminAPI.Properties.Resources", typeof(Resources).Assembly);
-            appID = resourceMan.GetString("application_id");
+            appID = WargaminAPI.Enigma.Decrypt(resourceMan.GetString("application_id"), PHRASE);
         }
         protected string GetResponse(string urlRequest)
         {

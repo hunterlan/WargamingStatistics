@@ -27,5 +27,12 @@ namespace WargaminAPI.WoT
 
             return nameClan;
         }
+
+        public object GetValue(string param)
+        {
+            object value = null;
+
+            return value;
+        }
     }
 }

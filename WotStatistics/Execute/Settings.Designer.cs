@@ -61,7 +61,7 @@ namespace Execute {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на NjQzNDU4NTYwMTQzMTMwNjQ4.XdLOlQ.Q2_GX5YYuK5gvxuKnD7OQmFuriM.
+        ///   Ищет локализованную строку, похожую на 23QZ5yf1XW/hcKkkmwpeUXL6Yn0rUC3VKHBoa9Z/vG7Yu0vlwAW7eVNYFgXUQXroRdHIJ8JNOUR6FZYYVRi7xUO6QLTDserBzsGNw3WS7v5fEeon22UHbGZj9QiP2vU8.
         /// </summary>
         internal static string DisToken {
             get {

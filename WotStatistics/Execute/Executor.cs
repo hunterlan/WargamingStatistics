@@ -1,5 +1,6 @@
 ﻿using DSharpPlus;
 using Execute;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WargaminAPI.Exceptions;
@@ -14,13 +15,16 @@ namespace WargamingStat
         static System.Resources.ResourceManager resourceMan;
         static readonly string STAT_PLAYER = "&stats_player";
         static readonly string HELP = "&help";
+        static readonly string PHRASE = "DisToken";
         static void Main(string[] args)
         {
             resourceMan = new System.Resources.ResourceManager("Execute.Settings", typeof(Settings).Assembly);
-            MainTask(args).ConfigureAwait(false).GetAwaiter().GetResult();
+            Console.WriteLine(WargaminAPI.Enigma.Encrypt("9adf6dc175f22b26d8f812ca4dd7d7bb", "AppID"));
+            //MainTask(args).ConfigureAwait(false).GetAwaiter().GetResult();
         }
         static async Task MainTask(string[] args)
         {
+            string token = WargaminAPI.Enigma.Decrypt(resourceMan.GetString("DisToken"), PHRASE);
             discord = new DiscordClient(new DiscordConfiguration
             {
                 Token = resourceMan.GetString("DisToken"),

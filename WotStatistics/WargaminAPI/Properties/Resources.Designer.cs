@@ -61,7 +61,7 @@ namespace WargaminAPI.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 9adf6dc175f22b26d8f812ca4dd7d7bb.
+        ///   Ищет локализованную строку, похожую на Tjyua9cZxQCewpTUhLXIMc/JjuntTbkNpEo5o5JbVRI+rnuvS0oPrkh787UtzajRCzN0dnCVYMuCm24DtdGJXiWBrGc86hRrTaeZypXOawg=.
         /// </summary>
         internal static string application_id {
             get {
