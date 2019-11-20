@@ -3,22 +3,11 @@ using System;
 using WargaminAPI.Model;
 using WargaminAPI.Exceptions;
 using Newtonsoft.Json.Linq;
-using System.Net;
-using System.IO;
-using WargaminAPI.Properties;
 
 namespace WargaminAPI.WoT
 {
-    public class PlayerInfo
+    public class PlayerInfo : Info
     {
-        private readonly string appID;
-        private string urlRequest;
-        System.Resources.ResourceManager resourceMan;
-        public PlayerInfo()
-        {
-            resourceMan = new System.Resources.ResourceManager("WargaminAPI.Properties.Resources", typeof(Resources).Assembly);
-            appID = resourceMan.GetString("application_id");
-        }
         public Player FindPlayer(string searchNickname)
         {
             //https://api.worldoftanks.ru/wot/account/list/?application_id=y0ur_a@@_id_h3r3search=nickname
@@ -80,9 +69,11 @@ namespace WargaminAPI.WoT
             string status = (string)parsed["status"];
             if (status == "ok")
             {
+                ClanInfo clanInfo = new ClanInfo();
+
                 playerStatistic.Rating = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["global_rating"];
                 string clanID = (string)parsed["data"][playerStatistic.PlayerId.ToString()]["clan_id"];
-                playerStatistic.Clan = GetClan(clanID);
+                playerStatistic.Clan = clanInfo.GetClan(clanID);
                 playerStatistic.CountBattles = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["battles"];
                 playerStatistic.Winrate = CountWinRate(
                     (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["wins"],
@@ -91,57 +82,6 @@ namespace WargaminAPI.WoT
             }
 
             return playerStatistic;
-        }
-
-        private string GetClan(string id)
-        {
-            string nameClan = "";
-
-            if (id == null)
-            {
-                return null;
-            }
-            else
-            {
-                urlRequest = resourceMan.GetString("uri_get_clan") + appID + "&clan_id=" + id;
-                string resultResponse = GetResponse(urlRequest);
-                JObject parsed = JObject.Parse(resultResponse);
-
-                string status = (string)parsed["status"];
-                if (status == "ok")
-                {
-                    nameClan = (string)parsed["data"][id]["name"];
-                }
-            }
-
-            return nameClan;
-        }
-
-        private DateTime ConvertFromTimestamp(int timestap)
-        {
-            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return origin.AddSeconds(timestap).ToUniversalTime();
-        }
-        private double CountWinRate(int wins, int countBattles)
-        {
-            double winRate = (double)wins / countBattles;
-            return winRate;
-        }
-
-        private string GetResponse(string urlRequest)
-        {
-            string resultResponse = "";
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRequest);
-            request.ContentType = "application/json; charset=utf-8";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
-            {
-                resultResponse = sr.ReadToEnd();
-            }
-
-            return resultResponse;
         }
     }
 }
