@@ -9,14 +9,7 @@ namespace WargaminAPI.WoT
     {
         public bool GetClan(Clan currentClan)
         {
-
-            if (currentClan.ID == -1)
-            {
-                return false;
-            }
-            else
-            {
-                urlRequest = resourceMan.GetString("uri_get_clan") + appID + "&clan_id=" + currentClan.ID;
+                urlRequest = resourceMan.GetString("uri_get_clan_by_name") + appID + "&search=" + currentClan.ClanName;
                 string resultResponse = GetResponse(urlRequest);
                 JObject parsed = JObject.Parse(resultResponse);
 
@@ -25,18 +18,45 @@ namespace WargaminAPI.WoT
                 {
                     try
                     {
-                        currentClan.ClanName = (string)parsed["data"][currentClan.ID.ToString()]["name"];
-                        currentClan.ClanTag = (string)parsed["data"][currentClan.ID.ToString()]["tag"];
-                        currentClan.CountMembers = int.Parse((string)parsed["data"][currentClan.ID.ToString()]["members_count"]);
+                        currentClan.ID = int.Parse((string)parsed["data"][0]["clan_id"]);
+                        currentClan.ClanTag = (string)parsed["data"][0]["tag"];
+                        currentClan.CountMembers = int.Parse((string)parsed["data"][0]["members_count"]);
                         currentClan.CreatedAt = ConvertFromTimestamp(
-                            int.Parse((string)parsed["data"][currentClan.ID.ToString()]["created_at"]));
+                        int.Parse((string)parsed["data"][0]["created_at"]));
                     }
                     catch(Exception ex)
-                    {
+                {
 
-                    }
                 }
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+        }
+
+        public string GetNameClan(string id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            else
+            {
+                urlRequest = resourceMan.GetString("uri_get_clan") + appID + "&clan_id=" + id;
+                string resultResponse = GetResponse(urlRequest);
+                JObject parsed = JObject.Parse(resultResponse);
+
+                string status = (string)parsed["status"];
+                if (status == "ok")
+                {
+                    return (string)parsed["data"][id]["name"];
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

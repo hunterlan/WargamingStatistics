@@ -123,6 +123,9 @@
   <data name="uri_get_clan" xml:space="preserve">
     <value>https://api.worldoftanks.ru/wot/clans/info/?application_id=</value>
   </data>
+  <data name="uri_get_clan_by_name" xml:space="preserve">
+    <value>https://api.worldoftanks.ru/wot/clans/list/?application_id=</value>
+  </data>
   <data name="uri_get_stat" xml:space="preserve">
     <value>https://api.worldoftanks.ru/wot/account/info/?application_id=</value>
   </data>

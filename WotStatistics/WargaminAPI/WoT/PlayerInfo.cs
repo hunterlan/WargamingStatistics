@@ -73,19 +73,7 @@ namespace WargaminAPI.WoT
 
                 playerStatistic.Rating = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["global_rating"];
                 string clanID = (string)parsed["data"][playerStatistic.PlayerId.ToString()]["clan_id"];
-                if(clanID == null)
-                {
-                    playerStatistic.Clan = null;
-                }
-                else
-                {
-                    Clan clan = new Clan
-                    {
-                        ID = int.Parse(clanID)
-                    };
-                    clanInfo.GetClan(clan);
-                    playerStatistic.Clan = clan.ClanName;
-                }
+                playerStatistic.Clan = clanInfo.GetNameClan(clanID);
                 playerStatistic.CountBattles = (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["battles"];
                 playerStatistic.Winrate = CountWinRate(
                     (int)parsed["data"][playerStatistic.PlayerId.ToString()]["statistics"]["all"]["wins"],

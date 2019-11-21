@@ -3,6 +3,7 @@ using Execute;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using WargaminAPI;
 using WargaminAPI.Exceptions;
 using WargaminAPI.Model;
 using WargaminAPI.WoT;
@@ -14,6 +15,7 @@ namespace WargamingStat
         static DiscordClient discord;
         static System.Resources.ResourceManager resourceMan;
         static readonly string STAT_PLAYER = "&stats_player";
+        static readonly string INFO_CLAN = "&clan";
         static readonly string HELP = "&help";
         static readonly string PHRASE = "DisToken";
         static void Main(string[] args)
@@ -41,6 +43,7 @@ namespace WargamingStat
                     {
                         string helpMsg = e.Author.Mention + "```css\nПомните: [] - обязательный параметр  \n" +
                                 "&stats_player [type_of_game] [your_nick] - показывает вашу статистику\n" +
+                                "&clan [type_of_game] [clan_name] - показывает инфу про клан\n" +
                                 "Где [type_of_game] - список игр варгейминг:\n" +
                                 "- WoT\n- WoW\n ```";
                         await e.Message.RespondAsync(helpMsg);
@@ -63,7 +66,7 @@ namespace WargamingStat
 
                             if (message.ToLower().StartsWith(STAT_PLAYER))
                             {
-                                string playerNickname = parseNickname(message, STAT_PLAYER, typeOfGame);
+                                string playerNickname = parseName(message, STAT_PLAYER, typeOfGame, true);
                                 Player currentPlayer = new Player();
                                 bool foundPlayer = false;
                                 try
@@ -87,6 +90,22 @@ namespace WargamingStat
                                         "  \n" + playerStatistics.ToString() + "```");
                                 }
                             }
+                            else if(message.ToLower().StartsWith(INFO_CLAN))
+                            {
+                                ClanInfo ops = new ClanInfo();
+                                Clan clan = new Clan();
+                                clan.ClanName = parseName(message, INFO_CLAN, typeOfGame, false);
+                                bool resultOperation = ops.GetClan(clan);
+                                if(resultOperation)
+                                {
+                                    ops.GetStat(clan);
+                                    await e.Message.RespondAsync(e.Author.Mention + clan.ToString());
+                                }
+                                else
+                                {
+                                    await e.Message.RespondAsync("Невозможно получить данные на этот запрос");
+                                }
+                            }
                         }
                     }
                 }
@@ -96,15 +115,14 @@ namespace WargamingStat
             await Task.Delay(-1);
         }
 
-        static string parseNickname(string message, string command, string typeOfGame)
+        static string parseName(string message, string command, string typeOfGame, bool needToRemoveSpace)
         {
-            string nickname = "";
-
             message = message.Replace(command, "");
             message = message.Replace(typeOfGame, "");
-            nickname = message.Replace(" ", "");
+            message = message.TrimStart();
+            message = message.TrimEnd();
 
-            return nickname;
+            return message;
         }
 
         static string parseTypeOfGame(string message)

@@ -79,6 +79,15 @@ namespace WargaminAPI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на https://api.worldoftanks.ru/wot/clans/list/?application_id=.
+        /// </summary>
+        internal static string uri_get_clan_by_name {
+            get {
+                return ResourceManager.GetString("uri_get_clan_by_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на https://api.worldoftanks.ru/wot/account/info/?application_id=.
         /// </summary>
         internal static string uri_get_stat {
