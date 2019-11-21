@@ -37,7 +37,7 @@ namespace WargamingStat
             discord.MessageCreated += async e =>
             {
                 string message = e.Message.Content;
-                if(message.StartsWith("&"))
+                if (message.StartsWith("&"))
                 {
                     if (message.ToLower().StartsWith(HELP))
                     {
@@ -90,21 +90,40 @@ namespace WargamingStat
                                         "  \n" + playerStatistics.ToString() + "```");
                                 }
                             }
-                            else if(message.ToLower().StartsWith(INFO_CLAN))
+                            else if (message.ToLower().StartsWith(INFO_CLAN))
                             {
                                 ClanInfo ops = new ClanInfo();
                                 Clan clan = new Clan();
                                 clan.ClanName = parseName(message, INFO_CLAN, typeOfGame, false);
-                                bool resultOperation = ops.GetClan(clan);
-                                if(resultOperation)
+                                try
+                                {
+                                    ops.GetClan(clan);
+                                }
+                                catch (ClanNotFound ex)
+                                {
+                                    await e.Message.RespondAsync(e.Author.Mention + "\n" + ex.Message);
+                                }
+                                catch
+                                {
+                                    string infoMsg = e.Author.Mention + "\nНапишите GRAF или hunterlan об ошибке и пропишите все ваши действия.";
+                                    await e.Message.RespondAsync(infoMsg);
+                                }
+                                try
                                 {
                                     ops.GetStat(clan);
                                     await e.Message.RespondAsync(e.Author.Mention + clan.ToString());
                                 }
-                                else
+                                catch (ClanNotFound ex)
                                 {
-                                    await e.Message.RespondAsync("Невозможно получить данные на этот запрос");
+                                    await e.Message.RespondAsync(e.Author.Mention + "\n" + ex.Message);
                                 }
+                                catch
+                                {
+                                    string infoMsg = e.Author.Mention + "\nНапишите GRAF или hunterlan об ошибке и пропишите все ваши действия.";
+                                    await e.Message.RespondAsync(infoMsg);
+                                }
+
+
                             }
                         }
                     }
