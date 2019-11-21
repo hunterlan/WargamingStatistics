@@ -4,3 +4,4 @@ dotnet: 3.0.100
 solution: WotStatistics/WargamingStat.sln
 script:
  - dotnet restore
+ - dotnet build -c Release
