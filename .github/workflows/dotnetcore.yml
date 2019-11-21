@@ -14,4 +14,4 @@ jobs:
       with:
         dotnet-version: 2.2.108
     - name: Build with dotnet
-      run: dotnet build --configuration Release --source WotStatistics/
+      run: dotnet build ./WotStatistics/WargamingStat.sln --configuration Release --source 
