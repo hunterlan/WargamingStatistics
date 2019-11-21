@@ -40,7 +40,8 @@ namespace Tests
 
             for(int i = 0; i < 2; i++)
             {
-                Assert.AreEqual(expectedResult[i], realResult[i]);
+                Assert.AreEqual(expectedResult[i].Nickname, realResult[i].Nickname);
+                Assert.AreEqual(expectedResult[i].Id, realResult[i].Id);
             }
         }
     }
