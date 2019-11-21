@@ -1,7 +1,8 @@
 language: csharp
 mono: none
 dotnet: 3.0.100
-solution: WotStatistics/WargamingStat.sln
+solution: WargamingStat.sln
 script:
+ - cd WotStatistics
  - dotnet restore
  - dotnet build -c Release
