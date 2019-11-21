@@ -1,25 +1,23 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WargaminAPI;
+using WargaminAPI.Model;
+using WargaminAPI.WoT;
 
 namespace Tests
 {
     [TestClass]
     public class ClassTestEnigma
     {
-        [TestMethod]
-        public void TestEncrypting()
-        {
-            string test = "Hello, World!";
-            string key = "test";
-            string expectedEncrypt = "rwl71YCs4yz5M7j+YjmNCEswFz2tTObWabwC/80RQtWReTjpV42sG58n8iYLkI/d";
-            string result = Enigma.Encrypt(test, key);
-
-            Assert.AreEqual(expectedEncrypt, result);
-        }
+        string Encrypted = "rwl71YCs4yz5M7j+YjmNCEswFz2tTObWabwC/80RQtWReTjpV42sG58n8iYLkI/d";
+        string sourceText = "Hello, World!";
+        string key = "test";
         [TestMethod]
         public void TestDecrypting()
         {
+            string result = Enigma.Decrypt(Encrypted, key);
 
+            Assert.AreEqual(sourceText, result);
         }
     }
+
 }
