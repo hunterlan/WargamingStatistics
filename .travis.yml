@@ -1,4 +1,3 @@
 language: csharp
 mono: none
 dotnet: 3.0.100
-solution: WotStatistics/WargamingStat.sln
