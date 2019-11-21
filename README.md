@@ -1,4 +1,6 @@
 # WoTStatistics
+[![Build Status](https://travis-ci.org/hunterlan/WargamingStatistics.svg?branch=master)](https://travis-ci.org/hunterlan/WargamingStatistics)
+
 Unofficial bot for discord to show the statistic of player in World of Tanks
 ## What's technlogy use?
 - Wargaming API
