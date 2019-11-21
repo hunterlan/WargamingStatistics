@@ -1,0 +1,4 @@
+language: csharp
+mono: none
+dotnet: 3.0.100
+solution: WargamingStat.sln
