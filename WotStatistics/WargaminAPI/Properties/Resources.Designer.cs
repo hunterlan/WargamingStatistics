@@ -106,11 +106,29 @@ namespace WargaminAPI.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на https://api.worldofwarships.ru/wows/account/info/?application_id=.
+        /// </summary>
+        internal static string uri_get_stat_WOW {
+            get {
+                return ResourceManager.GetString("uri_get_stat_WOW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на https://api.worldoftanks.ru/wot/account/list/?application_id=.
         /// </summary>
         internal static string url_find_player {
             get {
                 return ResourceManager.GetString("url_find_player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на https://api.worldofwarships.ru/wows/account/list/?application_id=.
+        /// </summary>
+        internal static string url_find_player_WOW {
+            get {
+                return ResourceManager.GetString("url_find_player_WOW", resourceCulture);
             }
         }
     }

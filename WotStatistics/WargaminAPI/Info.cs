@@ -3,7 +3,7 @@ using WargaminAPI.Properties;
 using System.IO;
 using System.Net;
 
-namespace WargaminAPI.WoT
+namespace WargaminAPI
 {
     public class Info
     {

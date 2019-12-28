@@ -132,7 +132,13 @@
   <data name="uri_get_stat_clan" xml:space="preserve">
     <value>https://api.worldoftanks.ru/wot/clanratings/clans/?application_id=</value>
   </data>
+  <data name="uri_get_stat_WOW" xml:space="preserve">
+    <value>https://api.worldofwarships.ru/wows/account/info/?application_id=</value>
+  </data>
   <data name="url_find_player" xml:space="preserve">
     <value>https://api.worldoftanks.ru/wot/account/list/?application_id=</value>
+  </data>
+  <data name="url_find_player_WOW" xml:space="preserve">
+    <value>https://api.worldofwarships.ru/wows/account/list/?application_id=</value>
   </data>
 </root>
