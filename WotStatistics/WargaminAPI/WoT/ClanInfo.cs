@@ -8,7 +8,7 @@ namespace WargaminAPI.WoT
 {
     public class ClanInfo : Info
     {
-        public void GetClan(Clan currentClan)
+        public void GetClan(ClanWoT currentClan)
         {
             urlRequest = resourceMan.GetString("uri_get_clan_by_name") + appID + "&search=" + currentClan.ClanName;
             string resultResponse = GetResponse(urlRequest);
@@ -62,7 +62,7 @@ namespace WargaminAPI.WoT
         }
 
 
-        public void GetStat(Clan currentClan)
+        public void GetStat(ClanWoT currentClan)
         {
             urlRequest = resourceMan.GetString("uri_get_stat_clan") + appID + "&clan_id=" + currentClan.ID;
             string resultResponse = GetResponse(urlRequest);

@@ -58,7 +58,8 @@ namespace WargamingStat
                         }
                         else if (typeOfGame.ToLower() == "wow")
                         {
-                            await e.Message.RespondAsync("В разработке");
+                                await e.Message.RespondAsync(e.Author.Mention + ",\nВ связи с тем, что разработчики по неизвестным причинам " + 
+                                "сделали очень скудный набор публичный данных для разработчиков, адекватную статистику для WoWS сделать невозможно!\n");
                         }
                         else if (typeOfGame.ToLower() == "wot")
                         {
@@ -93,7 +94,7 @@ namespace WargamingStat
                             else if (message.ToLower().StartsWith(INFO_CLAN))
                             {
                                 ClanInfo ops = new ClanInfo();
-                                Clan clan = new Clan();
+                                ClanWoT clan = new ClanWoT();
                                 clan.ClanName = parseName(message, INFO_CLAN, typeOfGame, false);
                                 try
                                 {
